@@ -93,7 +93,7 @@ export function AppShell({ athlete, getValidToken, onLogout }: Props) {
           ) : (
             <>
               {tab === 'dashboard' && <Dashboard activities={activities} />}
-              {tab === 'activities' && <ActivityTable activities={activities} />}
+              {tab === 'activities' && <ActivityTable activities={activities} getValidToken={getValidToken} />}
             </>
           )}
         </main>

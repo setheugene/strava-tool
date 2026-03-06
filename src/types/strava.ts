@@ -33,6 +33,15 @@ export interface StravaActivity {
   };
 }
 
+export interface SplitImperial {
+  distance: number;           // meters
+  elapsed_time: number;       // seconds
+  moving_time: number;        // seconds
+  average_speed: number;      // m/s
+  elevation_difference: number; // meters
+  pace_zone: number;
+}
+
 export type ActivityType = 'Run' | 'Ride' | 'Walk' | 'Swim' | 'Hike' | 'All';
 
 export interface ActivityFilters {

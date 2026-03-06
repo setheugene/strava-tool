@@ -1,5 +1,5 @@
 import { STRAVA_TOKEN_URL, STRAVA_API_BASE } from './constants';
-import type { StravaToken, StravaActivity } from '../types/strava';
+import type { StravaToken, StravaActivity, SplitImperial } from '../types/strava';
 
 export async function exchangeToken(
   code: string,
@@ -81,4 +81,18 @@ export async function fetchActivities(
   }
 
   return all;
+}
+
+export async function fetchActivityDetail(
+  id: number,
+  accessToken: string
+): Promise<SplitImperial[]> {
+  const res = await fetch(`${STRAVA_API_BASE}/activities/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch activity detail: ${res.status}`);
+  }
+  const data = await res.json();
+  return data.splits_imperial ?? [];
 }

@@ -8,9 +8,10 @@ const PAGE_SIZE = 50;
 
 interface Props {
   activities: StravaActivity[];
+  getValidToken: () => Promise<string | null>;
 }
 
-export function ActivityTable({ activities }: Props) {
+export function ActivityTable({ activities, getValidToken }: Props) {
   const years = useMemo(() => availableYears(activities), [activities]);
   const [filters, setFilters] = useState<ActivityFilters>({ type: 'All' });
   const [sortKey, setSortKey] = useState<SortKey>('start_date');
@@ -103,7 +104,7 @@ export function ActivityTable({ activities }: Props) {
                   </td>
                 </tr>
               ) : (
-                paged.map((a) => <ActivityRow key={a.id} activity={a} />)
+                paged.map((a) => <ActivityRow key={a.id} activity={a} getValidToken={getValidToken} />)
               )}
             </tbody>
           </table>
