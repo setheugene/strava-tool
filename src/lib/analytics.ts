@@ -73,6 +73,26 @@ export function longestRide(activities: StravaActivity[], year?: number): { mile
   return { miles: metersToMiles(best.distance), id: best.id };
 }
 
+function metersToFeet(m: number): number {
+  return m * 3.28084;
+}
+
+export function totalElevationRunning(activities: StravaActivity[], year: number): number {
+  return metersToFeet(
+    activities
+      .filter((a) => isRun(a) && getYear(a) === year)
+      .reduce((sum, a) => sum + a.total_elevation_gain, 0)
+  );
+}
+
+export function totalElevationRiding(activities: StravaActivity[], year: number): number {
+  return metersToFeet(
+    activities
+      .filter((a) => isRide(a) && getYear(a) === year)
+      .reduce((sum, a) => sum + a.total_elevation_gain, 0)
+  );
+}
+
 export function groupActivityMiles(activities: StravaActivity[], year?: number): number {
   return metersToMiles(
     activities

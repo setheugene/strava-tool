@@ -72,6 +72,26 @@ export function Dashboard({ activities }: Props) {
           }
         />
         <StatCard
+          title={`Elevation Gained Running in ${selectedYear}`}
+          value={Math.round(stats.elevationRunning).toLocaleString()}
+          subtitle="feet"
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 17l7-10 7 10M9 13h6" />
+            </svg>
+          }
+        />
+        <StatCard
+          title={`Elevation Gained Riding in ${selectedYear}`}
+          value={Math.round(stats.elevationRiding).toLocaleString()}
+          subtitle="feet"
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 17l7-10 7 10M9 13h6" />
+            </svg>
+          }
+        />
+        <StatCard
           title="Longest Run"
           value={stats.longestRun.miles.toFixed(1)}
           subtitle={`miles in ${selectedYear}`}
