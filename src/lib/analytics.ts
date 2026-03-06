@@ -64,12 +64,13 @@ export function totalRidesThisYear(activities: StravaActivity[], year: number): 
   return activities.filter((a) => isRide(a) && getYear(a) === year).length;
 }
 
-export function longestRide(activities: StravaActivity[], year?: number): number {
+export function longestRide(activities: StravaActivity[], year?: number): { miles: number; id: number | null } {
   const rides = activities.filter(
     (a) => isRide(a) && (year === undefined || getYear(a) === year)
   );
-  if (rides.length === 0) return 0;
-  return metersToMiles(Math.max(...rides.map((a) => a.distance)));
+  if (rides.length === 0) return { miles: 0, id: null };
+  const best = rides.reduce((a, b) => (a.distance >= b.distance ? a : b));
+  return { miles: metersToMiles(best.distance), id: best.id };
 }
 
 export function groupActivityMiles(activities: StravaActivity[], year?: number): number {
@@ -84,12 +85,13 @@ export function groupActivityMiles(activities: StravaActivity[], year?: number):
   );
 }
 
-export function longestRun(activities: StravaActivity[], year?: number): number {
+export function longestRun(activities: StravaActivity[], year?: number): { miles: number; id: number | null } {
   const runs = activities.filter(
     (a) => isRun(a) && (year === undefined || getYear(a) === year)
   );
-  if (runs.length === 0) return 0;
-  return metersToMiles(Math.max(...runs.map((a) => a.distance)));
+  if (runs.length === 0) return { miles: 0, id: null };
+  const best = runs.reduce((a, b) => (a.distance >= b.distance ? a : b));
+  return { miles: metersToMiles(best.distance), id: best.id };
 }
 
 export function milesByMonth(activities: StravaActivity[], year: number): number[] {
