@@ -16,11 +16,10 @@ export function MonthlyChart({ data, year }: Props) {
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
       <h3 className="text-sm font-medium text-gray-500 mb-4">Miles per Month — {year}</h3>
-      <div className="overflow-x-auto">
+      <div>
         <svg
           viewBox={`0 0 ${totalWidth} ${chartHeight + 32}`}
-          width={totalWidth}
-          height={chartHeight + 32}
+          width="100%"
           className="block"
         >
           {data.map((miles, i) => {

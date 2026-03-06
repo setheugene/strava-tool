@@ -53,7 +53,7 @@ export function FilterBar({ filters, years, onChange }: Props) {
         value={filters.search ?? ''}
         onChange={(e) => onChange({ ...filters, search: e.target.value })}
         placeholder="Search by name..."
-        className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-400 w-48"
+        className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-400 flex-1 min-w-0"
       />
     </div>
   );

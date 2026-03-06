@@ -7,7 +7,7 @@ interface Props {
 
 export function Header({ athlete, onLogout }: Props) {
   return (
-    <header className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between">
+    <header className="bg-white border-b border-gray-100 px-3 sm:px-6 py-3 flex items-center justify-between">
       <div className="flex items-center gap-2">
         <svg className="w-6 h-6 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
           <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066l-2.084 4.116z" />
@@ -24,7 +24,7 @@ export function Header({ athlete, onLogout }: Props) {
               className="w-7 h-7 rounded-full object-cover"
             />
           )}
-          <span className="text-sm text-gray-700 font-medium">
+          <span className="hidden sm:block text-sm text-gray-700 font-medium">
             {athlete.firstname} {athlete.lastname}
           </span>
         </div>

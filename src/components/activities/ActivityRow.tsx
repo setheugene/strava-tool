@@ -30,8 +30,8 @@ export function ActivityRow({ activity }: Props) {
       </td>
       <td className="py-3 px-4 text-sm text-gray-700 text-right whitespace-nowrap">{miles} mi</td>
       <td className="py-3 px-4 text-sm text-gray-700 text-right whitespace-nowrap">{duration}</td>
-      <td className="py-3 px-4 text-sm text-gray-500 text-right whitespace-nowrap">{pace}/mi</td>
-      <td className="py-3 px-4 text-sm text-gray-400 text-right">{activity.kudos_count}</td>
+      <td className="hidden sm:table-cell py-3 px-4 text-sm text-gray-500 text-right whitespace-nowrap">{pace}/mi</td>
+      <td className="hidden sm:table-cell py-3 px-4 text-sm text-gray-400 text-right">{activity.kudos_count}</td>
     </tr>
   );
 }

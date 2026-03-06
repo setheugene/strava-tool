@@ -84,11 +84,11 @@ export function ActivityTable({ activities }: Props) {
                 >
                   Time <SortIcon col="moving_time" />
                 </th>
-                <th className="py-3 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <th className="hidden sm:table-cell py-3 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Pace
                 </th>
                 <th
-                  className="py-3 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide cursor-pointer hover:text-gray-700"
+                  className="hidden sm:table-cell py-3 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide cursor-pointer hover:text-gray-700"
                   onClick={() => handleSort('kudos_count')}
                 >
                   Kudos <SortIcon col="kudos_count" />
@@ -114,7 +114,7 @@ export function ActivityTable({ activities }: Props) {
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={page === 0}
-              className="text-sm text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+              className="text-sm text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               ← Previous
             </button>
@@ -124,7 +124,7 @@ export function ActivityTable({ activities }: Props) {
             <button
               onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
               disabled={page === totalPages - 1}
-              className="text-sm text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+              className="text-sm text-gray-600 hover:text-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Next →
             </button>
