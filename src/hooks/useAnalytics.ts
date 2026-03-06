@@ -2,7 +2,10 @@ import { useMemo } from 'react';
 import {
   totalMilesThisYear,
   totalRunsThisYear,
-  groupRunMiles,
+  totalMilesRidden,
+  totalRidesThisYear,
+  longestRide,
+  groupActivityMiles,
   longestRun,
   milesByMonth,
   availableYears,
@@ -19,7 +22,10 @@ export function useAnalytics(activities: StravaActivity[], selectedYear?: number
     () => ({
       totalMilesThisYear: totalMilesThisYear(activities, year),
       totalRunsThisYear: totalRunsThisYear(activities, year),
-      groupMiles: groupRunMiles(activities, year),
+      totalMilesRidden: totalMilesRidden(activities, year),
+      totalRidesThisYear: totalRidesThisYear(activities, year),
+      longestRide: longestRide(activities, year),
+      groupMiles: groupActivityMiles(activities, year),
       longestRun: longestRun(activities, year),
     }),
     [activities, year]

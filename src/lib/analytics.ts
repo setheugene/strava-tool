@@ -34,6 +34,12 @@ function isRun(activity: StravaActivity): boolean {
   return activity.type === 'Run' || activity.sport_type === 'Run';
 }
 
+const RIDE_TYPES = new Set(['Ride', 'VirtualRide', 'EBikeRide', 'MountainBikeRide', 'GravelRide']);
+
+function isRide(activity: StravaActivity): boolean {
+  return RIDE_TYPES.has(activity.sport_type) || RIDE_TYPES.has(activity.type);
+}
+
 export function totalMilesThisYear(activities: StravaActivity[], year: number): number {
   return metersToMiles(
     activities
@@ -46,12 +52,31 @@ export function totalRunsThisYear(activities: StravaActivity[], year: number): n
   return activities.filter((a) => isRun(a) && getYear(a) === year).length;
 }
 
-export function groupRunMiles(activities: StravaActivity[], year?: number): number {
+export function totalMilesRidden(activities: StravaActivity[], year: number): number {
+  return metersToMiles(
+    activities
+      .filter((a) => isRide(a) && getYear(a) === year)
+      .reduce((sum, a) => sum + a.distance, 0)
+  );
+}
+
+export function totalRidesThisYear(activities: StravaActivity[], year: number): number {
+  return activities.filter((a) => isRide(a) && getYear(a) === year).length;
+}
+
+export function longestRide(activities: StravaActivity[], year?: number): number {
+  const rides = activities.filter(
+    (a) => isRide(a) && (year === undefined || getYear(a) === year)
+  );
+  if (rides.length === 0) return 0;
+  return metersToMiles(Math.max(...rides.map((a) => a.distance)));
+}
+
+export function groupActivityMiles(activities: StravaActivity[], year?: number): number {
   return metersToMiles(
     activities
       .filter(
         (a) =>
-          isRun(a) &&
           a.athlete_count > 1 &&
           (year === undefined || getYear(a) === year)
       )
