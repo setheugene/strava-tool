@@ -17,8 +17,8 @@ export function useAnalytics(activities: StravaActivity[], selectedYear?: number
 
   const stats = useMemo(
     () => ({
-      totalMilesThisYear: totalMilesThisYear(activities),
-      totalRunsThisYear: totalRunsThisYear(activities),
+      totalMilesThisYear: totalMilesThisYear(activities, year),
+      totalRunsThisYear: totalRunsThisYear(activities, year),
       groupMiles: groupRunMiles(activities, year),
       longestRun: longestRun(activities, year),
     }),

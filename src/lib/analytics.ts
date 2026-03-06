@@ -34,8 +34,7 @@ function isRun(activity: StravaActivity): boolean {
   return activity.type === 'Run' || activity.sport_type === 'Run';
 }
 
-export function totalMilesThisYear(activities: StravaActivity[]): number {
-  const year = new Date().getFullYear();
+export function totalMilesThisYear(activities: StravaActivity[], year: number): number {
   return metersToMiles(
     activities
       .filter((a) => isRun(a) && getYear(a) === year)
@@ -43,8 +42,7 @@ export function totalMilesThisYear(activities: StravaActivity[]): number {
   );
 }
 
-export function totalRunsThisYear(activities: StravaActivity[]): number {
-  const year = new Date().getFullYear();
+export function totalRunsThisYear(activities: StravaActivity[], year: number): number {
   return activities.filter((a) => isRun(a) && getYear(a) === year).length;
 }
 
