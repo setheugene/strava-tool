@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatCard } from './StatCard';
 import { MonthlyChart } from './MonthlyChart';
+import { YearComparisonChart } from './YearComparisonChart';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import type { StravaActivity } from '../../types/strava';
 
@@ -126,6 +127,7 @@ export function Dashboard({ activities }: Props) {
       </div>
 
       <MonthlyChart data={monthly} year={selectedYear} />
+      <YearComparisonChart activities={activities} availableYears={years} />
     </div>
   );
 }

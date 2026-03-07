@@ -124,6 +124,34 @@ export function milesByMonth(activities: StravaActivity[], year: number): number
   return result.map(metersToMiles);
 }
 
+export type ActivityFilter = 'runs' | 'rides' | 'both';
+export type Metric = 'miles' | 'elevation';
+
+export function weeklyData(
+  activities: StravaActivity[],
+  year: number,
+  filter: ActivityFilter,
+  metric: Metric
+): number[] {
+  const result = new Array(52).fill(0);
+  const yearStart = new Date(year, 0, 1).getTime();
+
+  activities
+    .filter((a) => {
+      if (getYear(a) !== year) return false;
+      if (filter === 'runs') return isRun(a);
+      if (filter === 'rides') return isRide(a);
+      return isRun(a) || isRide(a);
+    })
+    .forEach((a) => {
+      const dayOfYear = Math.floor((new Date(a.start_date).getTime() - yearStart) / 86400000);
+      const week = Math.min(Math.floor(dayOfYear / 7), 51);
+      result[week] += metric === 'miles' ? metersToMiles(a.distance) : metersToFeet(a.total_elevation_gain);
+    });
+
+  return result;
+}
+
 export function availableYears(activities: StravaActivity[]): number[] {
   const years = new Set(activities.map(getYear));
   return Array.from(years).sort((a, b) => b - a);
