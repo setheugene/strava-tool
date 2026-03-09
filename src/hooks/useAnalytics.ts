@@ -10,6 +10,7 @@ import {
   groupActivityMiles,
   longestRun,
   milesByMonth,
+  bestEffortsRunning,
   availableYears,
 } from '../lib/analytics';
 import type { StravaActivity } from '../types/strava';
@@ -31,6 +32,7 @@ export function useAnalytics(activities: StravaActivity[], selectedYear?: number
       longestRide: longestRide(activities, year),
       groupMiles: groupActivityMiles(activities, year),
       longestRun: longestRun(activities, year),
+      bestEfforts: bestEffortsRunning(activities, year),
     }),
     [activities, year]
   );

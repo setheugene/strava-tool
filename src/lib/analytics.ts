@@ -152,8 +152,34 @@ export function weeklyData(
   return result;
 }
 
-export function availableYears(activities: StravaActivity[]): number[] {
-  const years = new Set(activities.map(getYear));
+const BEST_EFFORT_DISTANCES = [
+  { label: '1 Mile',        meters: 1609.34 },
+  { label: '5K',            meters: 5000 },
+  { label: '10K',           meters: 10000 },
+  { label: 'Half Marathon', meters: 21097.5 },
+  { label: 'Marathon',      meters: 42195 },
+] as const;
+
+export interface BestEffort {
+  label: string;
+  seconds: number | null; // null = no qualifying run found
+}
+
+export function bestEffortsRunning(activities: StravaActivity[], year: number): BestEffort[] {
+  const runs = activities.filter((a) => isRun(a) && getYear(a) === year && a.average_speed > 0);
+
+  return BEST_EFFORT_DISTANCES.map(({ label, meters }) => {
+    // Qualifying runs must cover at least 95% of the target distance
+    const qualifying = runs.filter((a) => a.distance >= meters * 0.95);
+    if (qualifying.length === 0) return { label, seconds: null };
+
+    // Best estimated time = target distance / fastest average speed
+    const best = qualifying.reduce((a, b) => (a.average_speed >= b.average_speed ? a : b));
+    return { label, seconds: Math.round(meters / best.average_speed) };
+  });
+}
+
+export function availableYears(activities: StravaActivity[]): number[] {  const years = new Set(activities.map(getYear));
   return Array.from(years).sort((a, b) => b - a);
 }
 
